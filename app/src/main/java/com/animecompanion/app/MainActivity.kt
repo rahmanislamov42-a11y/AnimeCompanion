@@ -11,7 +11,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
-@OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +27,7 @@ data class Character(
     val description: String
 )
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AnimeCompanionApp() {
     val characters = listOf(
@@ -50,14 +50,12 @@ fun AnimeCompanionApp() {
             )
         }
     ) { padding ->
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
                 .padding(16.dp)
         ) {
-
             Text(
                 "Выбери своего компаньона",
                 style = MaterialTheme.typography.titleMedium
