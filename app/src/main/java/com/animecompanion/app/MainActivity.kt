@@ -1,4 +1,3 @@
-
 package com.animecompanion.app
 
 import android.os.Bundle
@@ -12,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
+@OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +39,9 @@ fun AnimeCompanionApp() {
 
     var selected by remember { mutableStateOf(characters[0]) }
     var message by remember { mutableStateOf("") }
-    var chat by remember { mutableStateOf(listOf("Привет! Рад тебя видеть 💜")) }
+    var chat by remember {
+        mutableStateOf(listOf("Привет! Рад тебя видеть 💜"))
+    }
 
     Scaffold(
         topBar = {
@@ -48,19 +50,28 @@ fun AnimeCompanionApp() {
             )
         }
     ) { padding ->
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
                 .padding(16.dp)
         ) {
-            Text("Выбери своего компаньона", style = MaterialTheme.typography.titleMedium)
+
+            Text(
+                "Выбери своего компаньона",
+                style = MaterialTheme.typography.titleMedium
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
 
             characters.forEach { character ->
                 OutlinedButton(
                     onClick = {
                         selected = character
-                        chat = listOf("Привет! Я ${character.name}. Рад тебя видеть 💜")
+                        chat = listOf(
+                            "Привет! Я ${character.name}. Рад тебя видеть 💜"
+                        )
                     },
                     modifier = Modifier.fillMaxWidth()
                 ) {
@@ -82,7 +93,10 @@ fun AnimeCompanionApp() {
                     .padding(vertical = 12.dp)
             ) {
                 items(chat) { item ->
-                    Text(item, modifier = Modifier.padding(8.dp))
+                    Text(
+                        text = item,
+                        modifier = Modifier.padding(8.dp)
+                    )
                 }
             }
 
@@ -93,12 +107,16 @@ fun AnimeCompanionApp() {
                 modifier = Modifier.fillMaxWidth()
             )
 
+            Spacer(modifier = Modifier.height(8.dp))
+
             Button(
                 onClick = {
                     if (message.isNotBlank()) {
                         val sent = message
-                        chat = chat + "Ты: $sent" +
+                        chat = chat + listOf(
+                            "Ты: $sent",
                             "Я: Спасибо, что написал мне! 💜"
+                        )
                         message = ""
                     }
                 },
